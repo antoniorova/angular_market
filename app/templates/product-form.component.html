@@ -1,0 +1,89 @@
+<div id="products-form">
+	<h2>Product List <small>Admin</small></h2>
+
+	<form class="form-horizontal" (submit)="saveProduct()" [formGroup] = "form">
+		<div class="form-group">
+			<label class="col-lg-1 control-label">Name:</label>
+			<div class="col-lg-4">
+				<input type="text" id="name" class="form-control" placeholder="Name" name="name" formControlName="name">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-1 control-label">Quantity:</label>
+			<div class="col-lg-4">
+				<input type="number" id="quantity" class="form-control" placeholder="Quantity" name="quantity" formControlName="quantity">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-1 control-label">Price:</label>
+			<div class="col-lg-4">
+				<div class="input-group">
+					<input type="number" id="price" class="form-control" placeholder="Price" name="price" step="any" formControlName="price">
+					<span class="input-group-addon">€</span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-1 control-label">Short Description:</label>
+			<div class="col-lg-4">
+				<textarea id="short_description" class="form-control" placeholder="Short Description" name="short_description" formControlName="short_description"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-1 control-label">Description:</label>
+			<div class="col-lg-4">
+				<textarea id="description" class="form-control" placeholder="Description" name="description" formControlName="description"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-1 control-label">Image:</label>
+			<span >
+			<table *ngIf="src.length > 0" class="table table-hover">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Thumbnail</th>
+						<th>Name</th>
+						<th>Size</th>
+						<th>Front</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody  [dragula]='"first-bag"' [dragulaModel]='src'>
+					<tr *ngFor="let s of src" class="{{s.file.name}}">
+						<td class="handle"><span class="glyphicon glyphicon-move"></span></td>
+						<td><img class="img-thumbnail" style="max-height: 80px; max-width: 80px;" [src]="s.newResized"></td>
+						<td>{{s.file.name}}</td>
+						<td>{{s.file.size | bytes }}</td>
+						<td><input type="radio" formControlName="front" value="{{s.file.name}}" ></td>
+						<td><button (click)="removeImage(s, true)">Remove</button></td>
+					<tr>
+				</tbody>
+			</table>
+			</span>
+	        <input [hidden]="src.length>0" type="file" image-upload
+	        (imageSelected)="selected($event)"
+	        [resizeOptions]="resizeOptions" [conditions]="conditions" multiple accept=".jpg, .png, .jpeg">
+	        <div>
+	        	<ul>
+	        		<li>
+	        		The maximum width & height is: {{conditions.maxHeight}} x {{conditions.maxWidth}}
+	        		</li>
+	        		<li>
+	        		The maximum size is: {{conditions.maxSize | bytes}}
+	        		</li>
+	        		<li>
+	        		The extensions allowed are: {{conditions.types}}
+	        		</li>
+	        	</ul>
+	        </div>
+	        <div *ngIf="uploadErrors.image.length > 0" class="alert alert-danger">
+	        	<ul>
+	        		<li *ngFor="let err of uploadErrors.image">{{err}}</li>
+	        	</ul>
+			</div>
+		</div>	
+		<button type="submit" class="btn btn-success" [disabled]="!form.valid">Save</button>
+		<button class="btn btn-primary" (click)="goBack()">Back</button>
+	</form>
+</div>

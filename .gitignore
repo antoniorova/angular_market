@@ -1,0 +1,6 @@
+/angular_market/nbproject/private/
+/nbproject/private/
+/node_modules/
+*.js
+*.js.map
+*.d.ts

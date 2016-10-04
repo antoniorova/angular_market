@@ -1,0 +1,25 @@
+<div id="market">
+	<h2>Market</h2>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 col-md-3" *ngFor="let p of products">
+				<div class="panel panel-primary">
+					<div class="panel-heading">{{p.name}}</div>
+					<div class="panel-body">
+						<span class="thumbnail">
+							<img *ngIf="p.data" src="{{p.data}}" alt="{{p.front}}" />
+							<img *ngIf="!p.data" myDefaultImage />
+						</span>
+						<span>{{p.short_description}}</span>
+						<label>Quantity:</label> <span>{{p.quantity}}</span>
+						<label>Price:</label> <span>{{p.price | currency:'EUR':true:'1.2-2' }}</span>
+					</div>
+					<div class="panel-footer">
+						<button class="btn btn-primary" (click)="goTo(p.id)"><span class="glyphicon glyphicon-list"></span> Details</button>
+						<button-buy [productSend]="p"></button-buy>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

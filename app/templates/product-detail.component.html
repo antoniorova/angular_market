@@ -1,0 +1,48 @@
+<div id="detail" *ngIf="product">
+	<h2>{{product.name | capitalize }} Details</h2>
+	<div class="container-fluid">
+		<div id="myCarousel" class="carousel slide" data-ride="carousel" *ngIf="product.data">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+			<li *ngFor="let p of products; let i = index; let first = first" data-target="#myCarousel" data-slide-to="0" [class.active]="first"></li>
+		</ol>
+
+		<!-- Wrapper for slides -->
+		<div class="carousel-inner" role="listbox">
+			<div class="item" *ngFor="let p of products;let first=first" [class.active]="first" >
+				<img style="height:25em; margin:auto;" src="{{p.data}}" alt="{{p.image_name}}">
+			</div>
+		</div>
+
+		<!-- Left and right controls -->
+		<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		<span class="sr-only">Previous</span>
+		</a>
+		<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		<span class="sr-only">Next</span>
+		</a>
+	</div>
+	<div *ngIf="!product.data">
+		<img myDefaultImage [mySetDefaultImage]= "'large'" class="center-block">
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-md-8">
+			<div class="text-justify p-a-3">
+				{{product.description}}
+			</div>
+			
+		</div>
+		<div class="col-xs-12 col-md-4">
+			<label>Quantity: </label><span>{{product.quantity}}</span>
+			<br/>
+			<label>Price: </label><span>{{product.price | currency:'EUR':true:'1.2-2' }}</span>
+			<br/>
+			<br/>
+			<button-buy [productSend]="product"></button-buy>
+		</div>
+	</div>
+		<button class="btn btn-primary" (click)="goBack()">Back</button>
+	</div>
+</div>

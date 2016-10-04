@@ -1,0 +1,31 @@
+<div id="bag">
+	<h2>Bag</h2>
+	<div *ngIf="count > 0">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Quantity</th>
+					<th>Price</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let p of products">
+					<td>{{p.name}}</td>
+					<td>{{p.quantity}}</td>
+					<td>{{p.price | currency:'EUR':true:'1.2-2' }}</td>
+					<td>{{p.total | currency:'EUR':true:'1.2-2' }}</td>					
+				</tr>
+				<tr class="success">
+					<td></td>
+					<td></td>
+					<td><strong>Total</strong></td>
+					<td>{{total | currency:'EUR':true:'1.2-2' }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<button class="btn btn-success" (click)="buyProducts()">Buy</button>
+	</div>
+	<div *ngIf="count==0">The bag is empty.</div>
+</div>

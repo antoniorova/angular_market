@@ -1,0 +1,6 @@
+node_modules
+typings
+*.ts
+!*.d.ts
+typings.json
+tsconfig.json
